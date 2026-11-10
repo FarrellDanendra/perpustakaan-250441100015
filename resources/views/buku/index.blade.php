@@ -40,7 +40,22 @@
             </p>
         @endif
         <p id="status-buku" role="status" aria-live="polite">Memuat data buku...</p>
-        <div id="book-grid" class="book-grid"></div>
+        {{-- modul 6 --}}
+        {{-- <div id="book-grid" class="book-grid"></div> --}}
+        <div class="book-grid">
+            @foreach ($books as $book)
+                <div class="book-card"
+                    style="border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
+                    <span class="book-category">{{ $book->kategori->nama ?? 'Umum' }}</span>
+                    <!-- Celah A1 -->
+                    <h2>{!! $book->judul !!}</h2>
+                    <p>Penulis: {{ $book->penulis }}</p>
+                    <p>Tahun: {{ $book->tahun_terbit }}</p>
+                    <a href="{{ route('buku.show', $book->id) }}">Lihat Detail</a>
+                </div>
+            @endforeach
+        </div>
+        {{-- end modul 6 --}}
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

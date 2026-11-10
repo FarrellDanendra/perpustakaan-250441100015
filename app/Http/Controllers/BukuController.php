@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// modul 6
+use App\Models\Buku;
+use Illuminate\Support\Facades\DB;
+// end modul 6
 
 class BukuController extends Controller
 {
@@ -43,13 +47,37 @@ class BukuController extends Controller
             'kategori' => 'Drama',
         ],
     ];
-
+    // modul 6
+    // public function index()
+    // {
+    //     return view('buku.index', [
+    //         'books' => $this->books
+    //     ]);
+    // }
     public function index()
     {
-        return view('buku.index', [
-            'books' => $this->books
-        ]);
+        $books = Buku::with('kategori')->get();
+        return view('buku.index', compact('books'));
     }
+
+    public function cari(Request $request)
+    {
+        $judul = $request->query('judul');
+
+        // Celah A2: Menggabungkan input langsung ke string SQL mentah
+        $hasil = DB::select("SELECT * FROM bukus WHERE judul = '$judul'");
+
+        return response()->json($hasil);
+    }
+
+    public function destroy(Buku $buku)
+    {
+        $buku->delete();
+
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus.');
+    }
+    // end modul 6
+
 
     public function show(int $id)
     {

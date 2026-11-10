@@ -34,7 +34,17 @@ Route::middleware(['auth', 'permission:view books'])->group(function () {
     Route::get('/buku/{id}', [BukuController::class, 'show'])
         ->name('buku.show');
 });
-
+// modul 6
+Route::middleware('auth')->group(function () {
+    Route::get('/buku-cari', [BukuController::class, 'cari'])->name('buku.cari');
+});
+Route::middleware('auth')->group(function () {
+    Route::get('/buku/{buku}/hapus', [BukuController::class, 'destroy'])->name('buku.hapus.get');
+});
+Route::middleware('auth')->group(function () {
+    Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
+});
+// end modul 6
 // modul 1
 // Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');
 // Route::get('/buku/{id}', [BukuController::class, 'show'])->name('buku.show');

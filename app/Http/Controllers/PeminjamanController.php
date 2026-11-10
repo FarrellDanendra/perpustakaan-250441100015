@@ -30,4 +30,13 @@ class PeminjamanController extends Controller
             ->route('buku.index')
             ->with('success', 'Pengajuan peminjaman berhasil dikirim dan sedang menunggu persetujuan.');
     }
+    // modul 6
+    public function show($id)
+    {
+        // Celah A4: Mengambil data tanpa memeriksa apakah peminjaman ini milik user yang login
+        $peminjaman = Peminjaman::with(['anggota', 'buku'])->findOrFail($id);
+
+        return view('peminjaman.show', compact('peminjaman'));
+    }
+    // end modul 6
 }
