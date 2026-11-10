@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 // modul 6
 use App\Models\Buku;
 use Illuminate\Support\Facades\DB;
+use App\Models\Kategori;
 // end modul 6
 
 class BukuController extends Controller
@@ -71,6 +72,23 @@ class BukuController extends Controller
         // end kode perbaikan celah A2
 
         return response()->json($hasil);
+    }
+
+    public function create()
+    {
+        $kategoris = Kategori::all();
+        return view('buku.create', compact('kategoris'));
+    }
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'kategori_id' => 'required|exists:kategoris,id',
+            'judul' => 'required|string|max:255',
+            'penulis' => 'required|string|max:255',
+            'tahun_terbit' => 'required|integer',
+        ]);
+        Buku::create($validated);
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil ditambahkan.');
     }
 
     public function destroy(Buku $buku)

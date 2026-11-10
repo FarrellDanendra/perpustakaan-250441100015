@@ -30,10 +30,19 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'permission:view books'])->group(function () {
     Route::get('/buku', [BukuController::class, 'index'])
         ->name('buku.index');
+});
 
+Route::middleware(['auth', 'can:kelola-buku'])->group(function () {
+    Route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
+    Route::post('/buku', [BukuController::class, 'store'])->name('buku.store');
+    Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])->name('buku.destroy');
+});
+
+Route::middleware(['auth', 'permission:view books'])->group(function () {
     Route::get('/buku/{id}', [BukuController::class, 'show'])
         ->name('buku.show');
 });
+
 // modul 6
 Route::middleware('auth')->group(function () {
     Route::get('/buku-cari', [BukuController::class, 'cari'])->name('buku.cari');
@@ -49,6 +58,12 @@ Route::middleware('auth')->group(function () {
 // });
 Route::middleware('auth')->group(function () {
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
+});
+// Route pengelolaan buku diproteksi oleh Gate 'kelola-buku'
+Route::middleware(['auth', 'can:kelola-buku'])->group(function () {
+    Route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
+    Route::post('/buku', [BukuController::class, 'store'])->name('buku.store');
+    Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])->name('buku.destroy');
 });
 // end modul 6
 // modul 1

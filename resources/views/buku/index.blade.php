@@ -48,6 +48,14 @@
         <p id="status-buku" role="status" aria-live="polite">Memuat data buku...</p>
         {{-- modul 6 --}}
         {{-- <div id="book-grid" class="book-grid"></div> --}}
+        @can('kelola-buku')
+            <div style="margin-bottom: 20px;">
+                <a href="{{ route('buku.create') }}"
+                    style="background-color: #4f46e5; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block;">
+                    + Tambah Buku Baru
+                </a>
+            </div>
+        @endcan
         <div id="book-grid" class="book-grid">
             @foreach ($books as $book)
                 <div class="book-card"
@@ -62,15 +70,17 @@
                     <p>Tahun: {{ $book->tahun_terbit }}</p>
                     <a href="{{ route('buku.show', $book->id) }}">Lihat Detail</a>
                     {{-- form delete soal nomor 2 --}}
-                    <form action="{{ route('buku.destroy', $book->id) }}" method="POST"
-                        onsubmit="return confirm('Yakin ingin menghapus buku ini?');" style="margin-top: 10px;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            style="background-color: #ef4444; color: white; padding: 6px 12px; border-radius: 4px; border: none; cursor: pointer;">
-                            Hapus Buku
-                        </button>
-                    </form>
+                    @can('kelola-buku')
+                        <form action="{{ route('buku.destroy', $book->id) }}" method="POST"
+                            onsubmit="return confirm('Yakin ingin menghapus buku ini?');" style="margin-top: 10px;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                style="background-color: #ef4444; color: white; padding: 6px 12px; border-radius: 4px; border: none; cursor: pointer;">
+                                Hapus Buku
+                            </button>
+                        </form>
+                    @endcan
                     {{-- end form delete soal nomor 2 --}}
                 </div>
             @endforeach
