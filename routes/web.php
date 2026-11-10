@@ -65,6 +65,9 @@ Route::middleware(['auth', 'can:kelola-buku'])->group(function () {
     Route::post('/buku', [BukuController::class, 'store'])->name('buku.store');
     Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])->name('buku.destroy');
 });
+Route::get('/test-error', function () {
+    throw new \RuntimeException('Uji coba error keamanan');
+});
 // end modul 6
 // modul 1
 // Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');

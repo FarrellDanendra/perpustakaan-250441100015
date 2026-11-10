@@ -10,6 +10,14 @@ class UserRoleSeeder extends Seeder
 {
     public function run(): void
     {
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
+                'name' => 'Administrator',
+                'password' => Hash::make('AdminPerpus_250441100015!'),
+            ]
+        );
+        $admin->assignRole('admin');
         $petugas = User::firstOrCreate(
             ['email' => 'petugas@gmail.com'],
             [
