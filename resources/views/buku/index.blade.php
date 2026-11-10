@@ -35,23 +35,43 @@
             </div>
         @endcan
         @if (session('success'))
-            <p class="alert-success" role="status">
+            <p class="alert-success" style="color: green; font-weight: bold; margin-bottom: 15px;" role="status">
                 {{ session('success') }}
+            </p>
+        @endif
+
+        @if (session('error'))
+            <p class="alert-danger" style="color: red; font-weight: bold; margin-bottom: 15px;" role="status">
+                {{ session('error') }}
             </p>
         @endif
         <p id="status-buku" role="status" aria-live="polite">Memuat data buku...</p>
         {{-- modul 6 --}}
         {{-- <div id="book-grid" class="book-grid"></div> --}}
-        <div class="book-grid">
+        <div id="book-grid" class="book-grid">
             @foreach ($books as $book)
                 <div class="book-card"
                     style="border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 8px;">
                     <span class="book-category">{{ $book->kategori->nama ?? 'Umum' }}</span>
                     <!-- Celah A1 -->
-                    <h2>{!! $book->judul !!}</h2>
+                    {{-- <h2>{!! $book->judul !!}</h2> --}}
+                    {{-- soal nomor 2 perbaikan celah A1 --}}
+                    <h2>{{ $book->judul }}</h2>
+                    {{-- end soal nomor 2 perbaikan celah A1 --}}
                     <p>Penulis: {{ $book->penulis }}</p>
                     <p>Tahun: {{ $book->tahun_terbit }}</p>
                     <a href="{{ route('buku.show', $book->id) }}">Lihat Detail</a>
+                    {{-- form delete soal nomor 2 --}}
+                    <form action="{{ route('buku.destroy', $book->id) }}" method="POST"
+                        onsubmit="return confirm('Yakin ingin menghapus buku ini?');" style="margin-top: 10px;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            style="background-color: #ef4444; color: white; padding: 6px 12px; border-radius: 4px; border: none; cursor: pointer;">
+                            Hapus Buku
+                        </button>
+                    </form>
+                    {{-- end form delete soal nomor 2 --}}
                 </div>
             @endforeach
         </div>

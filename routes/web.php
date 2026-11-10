@@ -38,9 +38,15 @@ Route::middleware(['auth', 'permission:view books'])->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/buku-cari', [BukuController::class, 'cari'])->name('buku.cari');
 });
+// hapus route, route jebakan buat hapus data buku
+// Route::middleware('auth')->group(function () {
+//     Route::get('/buku/{buku}/hapus', [BukuController::class, 'destroy'])->name('buku.hapus.get');
+// menggunakan route ini
 Route::middleware('auth')->group(function () {
-    Route::get('/buku/{buku}/hapus', [BukuController::class, 'destroy'])->name('buku.hapus.get');
+    Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])->name('buku.destroy');
 });
+// dengan menggunakan route delete
+// });
 Route::middleware('auth')->group(function () {
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
 });

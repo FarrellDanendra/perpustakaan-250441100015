@@ -65,13 +65,21 @@ class BukuController extends Controller
         $judul = $request->query('judul');
 
         // Celah A2: Menggabungkan input langsung ke string SQL mentah
-        $hasil = DB::select("SELECT * FROM bukus WHERE judul = '$judul'");
+        // $hasil = DB::select("SELECT * FROM bukus WHERE judul = '$judul'");
+        // kode perbaikan celah A2
+        $hasil = DB::select('SELECT * FROM bukus WHERE judul = ?', [$judul]);
+        // end kode perbaikan celah A2
 
         return response()->json($hasil);
     }
 
     public function destroy(Buku $buku)
     {
+        // Cek apakah buku sedang/pernah dipinjam
+        if ($buku->peminjamans()->exists()) {
+            return redirect()->route('buku.index')->with('error', 'Buku tidak dapat dihapus karena masih memiliki riwayat peminjaman.');
+        }
+
         $buku->delete();
 
         return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus.');
