@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buku;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PeminjamanController extends Controller
 {
@@ -35,6 +36,9 @@ class PeminjamanController extends Controller
     {
         // Celah A4: Mengambil data tanpa memeriksa apakah peminjaman ini milik user yang login
         $peminjaman = Peminjaman::with(['anggota', 'buku'])->findOrFail($id);
+        
+        // soal nomor 4 melakukan otorisasi view policy
+        Gate::authorize('view', $peminjaman);
 
         return view('peminjaman.show', compact('peminjaman'));
     }

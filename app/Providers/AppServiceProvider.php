@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Peminjaman;
+use App\Policies\PeminjamanPolicy;
 use Illuminate\Support\ServiceProvider;
 // modul 6
 use Illuminate\Support\Facades\Gate;
@@ -28,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('kelola-buku', function (User $user) {
             return $user->hasRole(['admin', 'petugas']);
         });
+
+        // Policy Peminjaman untuk Soal 4
+        Gate::policy(Peminjaman::class, PeminjamanPolicy::class);
     }
     // end modul 6
 }
