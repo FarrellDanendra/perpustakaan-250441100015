@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('anggota_id')->constrained('anggotas');
             $table->foreignId('buku_id')->constrained('bukus');
             $table->date('tanggal_pinjam');
-            $table->date('tanggal_kembali')->nullable;
+            $table->date('tanggal_kembali')->nullable();
             $table->timestamps();
         });
     }

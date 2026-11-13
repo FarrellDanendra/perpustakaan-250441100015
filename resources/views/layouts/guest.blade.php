@@ -48,6 +48,10 @@
                             <span class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm">📊</span>
                             <span class="text-sm">Laporan real-time terintegrasi</span>
                         </div>
+                        <div class="flex items-center gap-3 text-indigo-100">
+                            <span class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm">📚</span>
+                            <span class="text-sm">250441100015</span>
+                        </div>
                     </div>
                 </div>
             </div>
