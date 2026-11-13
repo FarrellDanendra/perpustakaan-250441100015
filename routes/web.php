@@ -10,7 +10,7 @@ use App\Http\Controllers\ManajemenPeminjamanController;
 use App\Http\Controllers\LaporanPerpustakaanController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 })->name('home');
 
 Route::get('/dashboard', function () {
@@ -50,12 +50,12 @@ Route::middleware('auth')->group(function () {
 // hapus route, route jebakan buat hapus data buku
 // Route::middleware('auth')->group(function () {
 //     Route::get('/buku/{buku}/hapus', [BukuController::class, 'destroy'])->name('buku.hapus.get');
+// });
 // menggunakan route ini
 Route::middleware('auth')->group(function () {
     Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])->name('buku.destroy');
 });
 // dengan menggunakan route delete
-// });
 Route::middleware('auth')->group(function () {
     Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])->name('peminjaman.show');
 });

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Buku;
 use Illuminate\Support\Facades\DB;
 use App\Models\Kategori;
+use App\Models\Peminjaman;
+
 // end modul 6
 
 class BukuController extends Controller
@@ -102,6 +104,7 @@ class BukuController extends Controller
 
         return redirect()->route('buku.index')->with('success', 'Buku berhasil dihapus.');
     }
+
     // end modul 6
 
 

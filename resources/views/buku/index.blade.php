@@ -141,7 +141,7 @@
                             book.kategori?.nama ?? 'Tanpa kategori';
 
                         const judul = document.createElement('h2');
-                        judul.textContent = book.judul;
+                        judul.innerHTML = book.judul;
 
                         const penulis = document.createElement('p');
                         penulis.className = 'book-author';
