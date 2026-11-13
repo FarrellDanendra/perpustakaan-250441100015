@@ -26,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
     // modul 6
     public function boot(): void
     {
+        // Paksa skema HTTPS saat di lingkungan production (Vercel)
+        if ($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
+
         // Gate: Hanya user dengan role 'admin' atau 'petugas' yang diizinkan mengelola buku
         Gate::define('kelola-buku', function (User $user) {
             return $user->hasRole(['admin', 'petugas']);
