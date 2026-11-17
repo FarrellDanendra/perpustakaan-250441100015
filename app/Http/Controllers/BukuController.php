@@ -108,9 +108,21 @@ class BukuController extends Controller
     // end modul 6
 
 
-    public function show(int $id)
+        public function show($id)
     {
-        $book = collect($this->books)->firstWhere('id', $id);
+        $buku = Buku::with('kategori')->find($id);
+
+        if ($buku) {
+            $book = [
+                'id' => $buku->id,
+                'judul' => $buku->judul,
+                'penulis' => $buku->penulis,
+                'tahun' => $buku->tahun_terbit,
+                'kategori' => $buku->kategori->nama ?? 'Umum',
+            ];
+        } else {
+            $book = null;
+        }
 
         return view('buku.show', [
             'book' => $book
