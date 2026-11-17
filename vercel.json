@@ -35,6 +35,8 @@
     "APP_SERVICES_CACHE": "/tmp/services.php",
     "VIEW_COMPILED_PATH": "/tmp/views",
     "CACHE_STORE": "array",
-    "SESSION_DRIVER": "cookie"
+    "SESSION_DRIVER": "cookie",
+    "SANCTUM_STATEFUL_DOMAINS": "perpustakaan-250441100015.vercel.app,localhost,127.0.0.1",
+    "APP_URL": "https://perpustakaan-250441100015.vercel.app"
   }
 }
