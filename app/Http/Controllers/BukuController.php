@@ -107,25 +107,25 @@ class BukuController extends Controller
 
     // end modul 6
 
-
-        public function show($id)
+    public function edit(Buku $buku)
+    {
+        $kategoris = Kategori::all();
+        return view('buku.edit', compact('buku', 'kategoris'));
+    }
+    public function update(Request $request, Buku $buku)
+    {
+        $validated = $request->validate([
+            'kategori_id' => 'required|exists:kategoris,id',
+            'judul' => 'required|string|max:255',
+            'penulis' => 'required|string|max:255',
+            'tahun_terbit' => 'required|integer',
+        ]);
+        $buku->update($validated);
+        return redirect()->route('buku.index')->with('success', 'Buku berhasil diperbarui.');
+    }
+    public function show($id)
     {
         $buku = Buku::with('kategori')->find($id);
-
-        if ($buku) {
-            $book = [
-                'id' => $buku->id,
-                'judul' => $buku->judul,
-                'penulis' => $buku->penulis,
-                'tahun' => $buku->tahun_terbit,
-                'kategori' => $buku->kategori->nama ?? 'Umum',
-            ];
-        } else {
-            $book = null;
-        }
-
-        return view('buku.show', [
-            'book' => $book
-        ]);
+        return view('buku.show', compact('buku'));
     }
 }

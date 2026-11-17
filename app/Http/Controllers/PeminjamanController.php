@@ -8,15 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class PeminjamanController extends Controller
-{
-    public function store(Request $request, Buku $buku)
+{    public function store(Request $request, Buku $buku)
     {
         $user = $request->user();
 
         $anggota = $user->anggota;
 
         if (!$anggota) {
-            abort(403, 'Data anggota tidak ditemukan.');
+            $anggota = $user->anggota()->create([
+                'nama' => $user->name,
+                'email' => $user->email,
+            ]);
         }
 
         Peminjaman::create([
@@ -29,7 +31,7 @@ class PeminjamanController extends Controller
 
         return redirect()
             ->route('buku.index')
-            ->with('success', 'Pengajuan peminjaman berhasil dikirim dan sedang menunggu persetujuan.');
+            ->with('success', 'Pengajuan peminjaman buku "' . $buku->judul . '" berhasil dikirim dan sedang menunggu persetujuan.');
     }
     // modul 6
     public function show($id)
