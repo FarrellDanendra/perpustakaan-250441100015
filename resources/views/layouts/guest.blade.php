@@ -30,7 +30,7 @@
                 <!-- Branding content -->
                 <div class="relative z-10 text-center">
                     <div class="text-8xl mb-6 drop-shadow-lg">📚</div>
-                    <h1 class="text-4xl font-bold text-white mb-3 tracking-tight">Perpustakaan</h1>
+                    <h1 class="text-4xl font-bold text-white mb-3 tracking-tight">Perpustakaan Modul 7</h1>
                     <p class="text-indigo-200 text-lg max-w-sm leading-relaxed">
                         Sistem Manajemen Perpustakaan Digital yang modern dan mudah digunakan.
                     </p>
